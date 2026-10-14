@@ -1,0 +1,956 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tudo sobre ela 💖</title>
+  <meta name="theme-color" content="#f8d9e8">
+
+  <style>
+    :root {
+      --bg: #fff5fa;
+      --panel: #ffffff;
+      --text: #493442;
+      --muted: #927889;
+      --primary: #e88bb8;
+      --primary-dark: #c85d92;
+      --soft: #fde5f0;
+      --border: #f2d5e4;
+      --shadow: 0 8px 25px rgba(140, 72, 109, .09);
+      --danger: #d94b68;
+    }
+
+    [data-theme="lilas"] {
+      --bg: #f7f2ff; --panel: #fff; --text: #443452;
+      --muted: #89799c; --primary: #b49ae8; --primary-dark: #8666ca;
+      --soft: #eee5ff; --border: #e1d5f8;
+    }
+
+    [data-theme="oceano"] {
+      --bg: #eef8ff; --panel: #fff; --text: #284151;
+      --muted: #708c9b; --primary: #75b9dc; --primary-dark: #378db7;
+      --soft: #dff2ff; --border: #cde7f5;
+    }
+
+    [data-theme="menta"] {
+      --bg: #effbf5; --panel: #fff; --text: #304b40;
+      --muted: #78968a; --primary: #83c9aa; --primary-dark: #459b77;
+      --soft: #dcf5e8; --border: #ccebdd;
+    }
+
+    [data-theme="escuro"] {
+      --bg: #211c29; --panel: #302838; --text: #f7eefa;
+      --muted: #c3b0c9; --primary: #d18ab6; --primary-dark: #efadd2;
+      --soft: #453348; --border: #514054;
+      --shadow: 0 8px 25px rgba(0, 0, 0, .18);
+      --danger: #ff8ca2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .2s, color .2s;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .container {
+      width: min(100% - 28px, 1000px);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 36px 0 26px;
+      text-align: center;
+    }
+
+    .heart {
+      font-size: 42px;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 42px);
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      margin: 8px auto 0;
+      color: var(--muted);
+      max-width: 550px;
+      line-height: 1.6;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      min-width: 0;
+    }
+
+    h2 {
+      font-size: 19px;
+      margin: 0 0 15px;
+    }
+
+    h3 { margin-top: 0; }
+
+    .field { margin-bottom: 13px; }
+
+    label {
+      display: block;
+      font-weight: 650;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--soft);
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 14px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    .btn {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 650;
+      transition: transform .12s, opacity .12s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: scale(.98); }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-danger { color: var(--danger); }
+    .btn-small { padding: 7px 10px; font-size: 12px; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .tab.active {
+      background: var(--soft);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) minmax(140px, 210px);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 16px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      box-shadow: var(--shadow);
+    }
+
+    .note.pinned { border: 2px solid var(--primary); }
+
+    .note h3 {
+      font-size: 17px;
+      margin: 9px 0 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .note-content {
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    .note-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    .note-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .category-tag {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .note-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 35px 12px;
+      line-height: 1.8;
+    }
+
+    .muted { color: var(--muted); font-size: 13px; }
+    .hidden { display: none !important; }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 18px;
+      margin-top: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 12px 0 32px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-heading h2 { margin: 0; }
+
+    .backup-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .backup-row input[type="file"] {
+      max-width: 100%;
+      padding: 7px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .form-grid, .notes-grid { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+      header { padding-top: 25px; }
+      .panel { padding: 15px; }
+      .topbar { align-items: stretch; }
+      .top-actions { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="heart">💗</div>
+      <h1>Tudo sobre ela</h1>
+      <p class="subtitle">
+        Um cantinho cheio de lembranças, detalhes e coisinhas importantes
+        sobre uma pessoa muito especial. Feito com carinho! ✨
+      </p>
+    </header>
+
+    <div class="topbar">
+      <span class="muted" id="saveStatus" aria-live="polite">💾 Salvamento automático ativado</span>
+      <div class="top-actions">
+        <label for="themeSelect" style="margin:0;align-self:center;">Tema</label>
+        <select id="themeSelect" style="width:auto;max-width:155px;">
+          <option value="rosa">🌸 Rosa</option>
+          <option value="lilas">💜 Lilás</option>
+          <option value="oceano">🌊 Oceano</option>
+          <option value="menta">🍃 Menta</option>
+          <option value="escuro">🌙 Escuro</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="panel" id="editorPanel">
+      <h2 id="formTitle">📝 Adicionar uma lembrança</h2>
+
+      <form id="noteForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="noteTitle">Título *</label>
+            <input id="noteTitle" maxlength="120" required
+                   placeholder="Ex.: Comida favorita">
+          </div>
+
+          <div class="field">
+            <label for="noteCategory">Categoria</label>
+            <select id="noteCategory">
+              <option value="💗 Favoritos">💗 Favoritos</option>
+              <option value="🎂 Datas importantes">🎂 Datas importantes</option>
+              <option value="🎁 Presentes">🎁 Presentes</option>
+              <option value="🎵 Gostos e preferências">🎵 Gostos e preferências</option>
+              <option value="😂 Memórias engraçadas">😂 Memórias engraçadas</option>
+              <option value="🌷 Outros detalhes">🌷 Outros detalhes</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="noteContent">Detalhes</label>
+            <textarea id="noteContent" maxlength="10000"
+              placeholder="Escreve aqui os detalhes que você quer lembrar..."></textarea>
+          </div>
+
+          <div class="field full">
+            <label>
+              <input id="noteFavorite" type="checkbox" style="width:auto;margin-right:6px;">
+              ⭐ Marcar como favorito
+            </label>
+            <label>
+              <input id="notePinned" type="checkbox" style="width:auto;margin-right:6px;">
+              📌 Fixar no topo
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit" id="submitBtn">💖 Salvar lembrança</button>
+          <button class="btn hidden" type="button" id="cancelEdit">Cancelar edição</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>📚 Meu caderninho</h2>
+        <span class="muted" id="noteCount">0 lembranças</span>
+      </div>
+
+      <div class="toolbar">
+        <input id="searchInput" type="search"
+               placeholder="🔎 Buscar título, detalhe ou categoria...">
+        <select id="sortSelect" aria-label="Ordenar lembranças">
+          <option value="pinned">📌 Fixados primeiro</option>
+          <option value="newest">🕒 Mais recentes</option>
+          <option value="oldest">📅 Mais antigas</option>
+          <option value="az">🔤 Ordem alfabética</option>
+        </select>
+      </div>
+
+      <div class="tabs" id="categoryTabs">
+        <button class="tab active" data-category="Todas">🌷 Todas</button>
+        <button class="tab" data-category="⭐ Favoritos">⭐ Favoritos</button>
+        <button class="tab" data-category="📌 Fixados">📌 Fixados</button>
+        <button class="tab" data-category="💗 Favoritos">💗 Favoritos</button>
+        <button class="tab" data-category="🎂 Datas importantes">🎂 Datas</button>
+        <button class="tab" data-category="🎁 Presentes">🎁 Presentes</button>
+        <button class="tab" data-category="🎵 Gostos e preferências">🎵 Gostos</button>
+        <button class="tab" data-category="😂 Memórias engraçadas">😂 Memórias</button>
+        <button class="tab" data-category="🌷 Outros detalhes">🌷 Outros</button>
+      </div>
+
+      <div id="notesList" class="notes-grid"></div>
+      <div id="emptyState" class="empty hidden">
+        <div style="font-size:35px;">🧸</div>
+        <strong>Nenhuma lembrança por aqui ainda!</strong>
+        <br>Adiciona uma lembrança ali em cima ou tenta outra busca. 💕
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>🗒️ Colinha do site</h2>
+      <p class="muted">
+        Anota aqui coisas gerais que você quer lembrar sobre o site ou sobre
+        as datas de aniversário dele. O texto é salvo automaticamente neste navegador.
+      </p>
+      <textarea id="cheatSheet" maxlength="20000"
+        placeholder="Ex.: data de aniversário do site, ideias para atualizar, coisas que quero lembrar..."></textarea>
+      <div class="status" id="cheatStatus" aria-live="polite">Salvo automaticamente neste navegador.</div>
+    </section>
+
+    <section class="panel">
+      <h2>📦 Backup e segurança</h2>
+      <p class="muted">
+        Faça um backup para guardar suas lembranças ou levá-las para outro navegador.
+        Importar um backup substitui os dados atuais deste caderninho.
+      </p>
+
+      <div class="backup-row">
+        <button class="btn btn-primary" id="exportBtn">⬇️ Exportar backup</button>
+        <button class="btn" id="copyBtn">📋 Copiar backup</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <label for="importFile">Importar um backup JSON</label>
+      <div class="backup-row">
+        <input type="file" id="importFile" accept=".json,application/json">
+        <button class="btn" id="importBtn">⬆️ Importar backup</button>
+      </div>
+
+      <div class="status" id="backupStatus" aria-live="polite"></div>
+
+      <div class="divider"></div>
+      <button class="btn btn-danger" id="clearBtn">🗑️ Apagar todos os dados locais</button>
+      <p class="muted">
+        Isso apaga as lembranças e a colinha salvas neste navegador. Essa ação não
+        apaga arquivos do GitHub e não pode ser desfeita sem um backup.
+      </p>
+    </section>
+
+    <footer class="footer">
+      Feito com muito carinho 💗<br>
+      Um caderninho de memórias, detalhes e momentos especiais. 🌷
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_KEY = "amiga-v1";
+      const THEME_KEY = "amiga-tema-v1";
+
+      const $ = (id) => document.getElementById(id);
+
+      let notes = [];
+      let editingId = null;
+      let activeCategory = "Todas";
+      let cheatSheet = "";
+
+      const form = $("noteForm");
+      const titleInput = $("noteTitle");
+      const contentInput = $("noteContent");
+      const categoryInput = $("noteCategory");
+      const favoriteInput = $("noteFavorite");
+      const pinnedInput = $("notePinned");
+      const notesList = $("notesList");
+      const emptyState = $("emptyState");
+      const searchInput = $("searchInput");
+      const sortSelect = $("sortSelect");
+
+      function makeId() {
+        if (window.crypto && typeof window.crypto.randomUUID === "function") {
+          return window.crypto.randomUUID();
+        }
+        return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+      }
+
+      function safeDate(value) {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? Date.now() : date.getTime();
+      }
+
+      function normalizeNote(note) {
+        return {
+          id: String(note.id || makeId()),
+          title: String(note.title || note.name || "Sem título").slice(0, 120),
+          content: String(note.content || note.details || note.text || "").slice(0, 10000),
+          category: String(note.category || "🌷 Outros detalhes"),
+          favorite: Boolean(note.favorite),
+          pinned: Boolean(note.pinned),
+          createdAt: safeDate(note.createdAt || note.date || Date.now()),
+          updatedAt: safeDate(note.updatedAt || note.createdAt || Date.now())
+        };
+      }
+
+      function loadData() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+
+          const data = JSON.parse(raw);
+
+          if (Array.isArray(data)) {
+            notes = data.map(normalizeNote);
+          } else if (data && typeof data === "object") {
+            const savedNotes = data.notes || data.items || [];
+            notes = Array.isArray(savedNotes) ? savedNotes.map(normalizeNote) : [];
+            cheatSheet = String(
+              data.cheatSheet ?? data.colinha ?? data.siteNotes ?? ""
+            );
+          }
+        } catch (error) {
+          console.error("Não foi possível ler os dados salvos.", error);
+          setStatus("saveStatus", "⚠️ Não consegui ler os dados locais. Faça um backup antes de continuar.");
+        }
+      }
+
+      function persist() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            notes,
+            cheatSheet
+          }));
+          setStatus("saveStatus", "💾 Salvamento automático ativado");
+          return true;
+        } catch (error) {
+          console.error("Falha ao salvar.", error);
+          setStatus("saveStatus", "⚠️ Não foi possível salvar. Exporte um backup.");
+          return false;
+        }
+      }
+
+      function setStatus(id, message) {
+        $(id).textContent = message;
+      }
+
+      function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[char]);
+      }
+
+      function formatDate(timestamp) {
+        try {
+          return new Intl.DateTimeFormat("pt-BR", {
+            dateStyle: "medium",
+            timeStyle: "short"
+          }).format(new Date(timestamp));
+        } catch {
+          return "";
+        }
+      }
+
+      function resetForm() {
+        editingId = null;
+        form.reset();
+        $("formTitle").textContent = "📝 Adicionar uma lembrança";
+        $("submitBtn").textContent = "💖 Salvar lembrança";
+        $("cancelEdit").classList.add("hidden");
+      }
+
+      function editNote(id) {
+        const note = notes.find(item => item.id === id);
+        if (!note) return;
+
+        editingId = id;
+        titleInput.value = note.title;
+        contentInput.value = note.content;
+        categoryInput.value = note.category;
+        favoriteInput.checked = note.favorite;
+        pinnedInput.checked = note.pinned;
+
+        $("formTitle").textContent = "✏️ Editar lembrança";
+        $("submitBtn").textContent = "💾 Salvar alterações";
+        $("cancelEdit").classList.remove("hidden");
+
+        $("editorPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+        titleInput.focus();
+      }
+
+      function deleteNote(id) {
+        const note = notes.find(item => item.id === id);
+        if (!note) return;
+
+        if (!confirm(`Tem certeza que quer apagar "${note.title}"?`)) return;
+
+        notes = notes.filter(item => item.id !== id);
+        if (editingId === id) resetForm();
+        persist();
+        renderNotes();
+      }
+
+      function toggleNoteFlag(id, flag) {
+        const note = notes.find(item => item.id === id);
+        if (!note) return;
+        note[flag] = !note[flag];
+        note.updatedAt = Date.now();
+        persist();
+        renderNotes();
+      }
+
+      function getVisibleNotes() {
+        const query = searchInput.value.trim().toLocaleLowerCase("pt-BR");
+
+        let filtered = notes.filter(note => {
+          const matchesCategory =
+            activeCategory === "Todas" ||
+            (activeCategory === "⭐ Favoritos" && note.favorite) ||
+            (activeCategory === "📌 Fixados" && note.pinned) ||
+            note.category === activeCategory;
+
+          const haystack = `${note.title} ${note.content} ${note.category}`.toLocaleLowerCase("pt-BR");
+          return matchesCategory && (!query || haystack.includes(query));
+        });
+
+        const sort = sortSelect.value;
+
+        filtered.sort((a, b) => {
+          if (sort === "pinned" && a.pinned !== b.pinned) {
+            return Number(b.pinned) - Number(a.pinned);
+          }
+          if (sort === "az") {
+            return a.title.localeCompare(b.title, "pt-BR");
+          }
+          if (sort === "oldest") {
+            return a.createdAt - b.createdAt;
+          }
+          return b.createdAt - a.createdAt;
+        });
+
+        return filtered;
+      }
+
+      function renderNotes() {
+        const visible = getVisibleNotes();
+
+        $("noteCount").textContent =
+          `${notes.length} ${notes.length === 1 ? "lembrança" : "lembranças"}`;
+
+        notesList.innerHTML = "";
+        emptyState.classList.toggle("hidden", visible.length !== 0);
+
+        visible.forEach(note => {
+          const article = document.createElement("article");
+          article.className = "note" + (note.pinned ? " pinned" : "");
+
+          article.innerHTML = `
+            <div class="note-top">
+              <span class="category-tag">${escapeHTML(note.category)}</span>
+              <span aria-label="${note.favorite ? "Favorito" : "Não favorito"}">${note.favorite ? "⭐" : ""}</span>
+            </div>
+            <h3>${escapeHTML(note.title)}</h3>
+            <div class="note-content">${escapeHTML(note.content)}</div>
+            <div class="note-meta">Criado em ${escapeHTML(formatDate(note.createdAt))}</div>
+            <div class="note-actions">
+              <button class="btn btn-small" data-action="favorite" data-id="${escapeHTML(note.id)}">
+                ${note.favorite ? "⭐ Favorito" : "☆ Favoritar"}
+              </button>
+              <button class="btn btn-small" data-action="pin" data-id="${escapeHTML(note.id)}">
+                ${note.pinned ? "📌 Fixado" : "📍 Fixar"}
+              </button>
+              <button class="btn btn-small" data-action="edit" data-id="${escapeHTML(note.id)}">✏️ Editar</button>
+              <button class="btn btn-small btn-danger" data-action="delete" data-id="${escapeHTML(note.id)}">🗑️ Apagar</button>
+            </div>
+          `;
+
+          notesList.appendChild(article);
+        });
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const title = titleInput.value.trim();
+        if (!title) {
+          titleInput.focus();
+          return;
+        }
+
+        if (editingId) {
+          const existing = notes.find(item => item.id === editingId);
+          if (!existing) {
+            resetForm();
+            return;
+          }
+
+          existing.title = title;
+          existing.content = contentInput.value.trim();
+          existing.category = categoryInput.value;
+          existing.favorite = favoriteInput.checked;
+          existing.pinned = pinnedInput.checked;
+          existing.updatedAt = Date.now();
+        } else {
+          notes.push({
+            id: makeId(),
+            title,
+            content: contentInput.value.trim(),
+            category: categoryInput.value,
+            favorite: favoriteInput.checked,
+            pinned: pinnedInput.checked,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+          });
+        }
+
+        persist();
+        resetForm();
+        renderNotes();
+      });
+
+      $("cancelEdit").addEventListener("click", resetForm);
+
+      notesList.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+
+        const { action, id } = button.dataset;
+
+        if (action === "edit") editNote(id);
+        if (action === "delete") deleteNote(id);
+        if (action === "favorite") toggleNoteFlag(id, "favorite");
+        if (action === "pin") toggleNoteFlag(id, "pinned");
+      });
+
+      $("categoryTabs").addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-category]");
+        if (!button) return;
+
+        activeCategory = button.dataset.category;
+
+        $("categoryTabs").querySelectorAll(".tab").forEach(tab => {
+          tab.classList.toggle("active", tab === button);
+        });
+
+        renderNotes();
+      });
+
+      searchInput.addEventListener("input", renderNotes);
+      sortSelect.addEventListener("change", renderNotes);
+
+      $("cheatSheet").addEventListener("input", () => {
+        cheatSheet = $("cheatSheet").value;
+        persist();
+        setStatus("cheatStatus", "💗 Colinha salva neste navegador.");
+      });
+
+      function applyTheme(theme) {
+        const validThemes = ["rosa", "lilas", "oceano", "menta", "escuro"];
+        if (!validThemes.includes(theme)) theme = "rosa";
+
+        if (theme === "rosa") {
+          document.documentElement.removeAttribute("data-theme");
+        } else {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+
+        $("themeSelect").value = theme;
+
+        try {
+          localStorage.setItem(THEME_KEY, theme);
+        } catch (error) {
+          console.warn("Não foi possível salvar o tema.", error);
+        }
+      }
+
+      $("themeSelect").addEventListener("change", () => {
+        applyTheme($("themeSelect").value);
+      });
+
+      function buildBackup() {
+        return {
+          app: "Tudo sobre ela",
+          version: 2,
+          exportedAt: new Date().toISOString(),
+          notes,
+          cheatSheet,
+          theme: $("themeSelect").value
+        };
+      }
+
+      function downloadBackup() {
+        const blob = new Blob(
+          [JSON.stringify(buildBackup(), null, 2)],
+          { type: "application/json;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "backup-caderninho-katy.json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+
+        setStatus("backupStatus", "✅ Backup exportado!");
+      }
+
+      $("exportBtn").addEventListener("click", downloadBackup);
+
+      $("copyBtn").addEventListener("click", async () => {
+        const backup = JSON.stringify(buildBackup(), null, 2);
+
+        try {
+          await navigator.clipboard.writeText(backup);
+          setStatus("backupStatus", "✅ Backup copiado!");
+        } catch {
+          const area = document.createElement("textarea");
+          area.value = backup;
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+
+          try {
+            const copied = document.execCommand("copy");
+            setStatus("backupStatus", copied
+              ? "✅ Backup copiado!"
+              : "⚠️ Não consegui copiar automaticamente. Use Exportar backup.");
+          } catch {
+            setStatus("backupStatus", "⚠️ Use Exportar backup para salvar seus dados.");
+          }
+
+          area.remove();
+        }
+      });
+
+      $("importBtn").addEventListener("click", async () => {
+        const file = $("importFile").files[0];
+
+        if (!file) {
+          setStatus("backupStatus", "Escolha um arquivo JSON primeiro.");
+          return;
+        }
+
+        try {
+          const parsed = JSON.parse(await file.text());
+          let importedNotes;
+          let importedCheat = "";
+          let importedTheme = "rosa";
+
+          if (Array.isArray(parsed)) {
+            importedNotes = parsed;
+          } else if (parsed && typeof parsed === "object") {
+            importedNotes = parsed.notes || parsed.items;
+            importedCheat = String(parsed.cheatSheet || parsed.colinha || "");
+            importedTheme = parsed.theme || "rosa";
+          }
+
+          if (!Array.isArray(importedNotes)) {
+            throw new Error("Formato de backup inválido.");
+          }
+
+          const confirmed = confirm(
+            "Importar este backup vai substituir as lembranças e a colinha atuais. Deseja continuar?"
+          );
+          if (!confirmed) return;
+
+          notes = importedNotes.map(normalizeNote);
+          cheatSheet = importedCheat;
+          $("cheatSheet").value = cheatSheet;
+          applyTheme(importedTheme);
+          persist();
+          renderNotes();
+          resetForm();
+
+          setStatus("backupStatus", "✅ Backup importado com sucesso!");
+        } catch (error) {
+          console.error(error);
+          setStatus("backupStatus", "⚠️ Não consegui importar. Verifique se escolheu um backup JSON válido.");
+        }
+      });
+
+      $("clearBtn").addEventListener("click", () => {
+        if (!confirm("Apagar TODAS as lembranças e a colinha salvas neste navegador?")) return;
+        if (!confirm("Última confirmação: você tem certeza? Se não tiver backup, os dados podem ser perdidos.")) return;
+
+        notes = [];
+        cheatSheet = "";
+        $("cheatSheet").value = "";
+        resetForm();
+        persist();
+        renderNotes();
+        setStatus("backupStatus", "Dados locais apagados.");
+        setStatus("cheatStatus", "Colinha vazia.");
+      });
+
+      loadData();
+      $("cheatSheet").value = cheatSheet;
+
+      let initialTheme = "rosa";
+      try {
+        initialTheme = localStorage.getItem(THEME_KEY) || "rosa";
+      } catch (error) {
+        console.warn("Não foi possível ler o tema salvo.", error);
+      }
+
+      applyTheme(initialTheme);
+      renderNotes();
+    })();
+  </script>
+</body>
+</html>
